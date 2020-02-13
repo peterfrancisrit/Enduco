@@ -1,4 +1,5 @@
 from pandas import DataFrame as df
+from pandas import to_datetime
 import numpy as np
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -8,7 +9,6 @@ from pyLDAvis import sklearn as sklearn_lda
 import pickle
 import pyLDAvis
 import os
-from pyfiglet import Figlet
 
 class Analyse:
 
@@ -20,9 +20,6 @@ class Analyse:
         self.n_topics = n_topics
         self.topic_output = 'topic_output.txt'
 
-        # figlet
-        f = Figlet(font='slant')
-        print(f.renderText('EnducoAnalyser'))
 
         # open and clean
         self._open()
@@ -66,7 +63,7 @@ class Analyse:
                 text.append(line.split('\0')[1])
             file.close()
 
-        self.data = pd.df({'date': dates,'text':text})
+        self.data = df({'date': dates,'text':text})
 
     def _clean(self):
         ''' Cleans the data, removing nans, removing stop words, lower case, removes punctuation'''
@@ -84,7 +81,7 @@ class Analyse:
         self.data['date'] = self.data['date'].apply(lambda x: "here is an error" if type(x) == float else x)
         self.data['date'] = self.data['date'].apply(lambda x: x if re.match(r"[A-Za-z]+ [0-9]+, [0-9]+", x) != None else 'OUT')
         data_clean = self.data[self.data['date'] != "OUT"]
-        data_clean['time'] = pd.to_datetime(data_clean['date'], format="%B %d, %Y")
+        data_clean['time'] = to_datetime(data_clean['date'], format="%B %d, %Y")
         data_clean['year'] = data_clean.time.dt.year
         data_clean['month'] = data_clean.time.dt.month
         data_clean = data_clean.set_index('time')
@@ -106,6 +103,3 @@ class Analyse:
         for topic_idx, topic in enumerate(self.model.components_):
             print("\nTopic #%d:" % topic_idx, " ".join([words[i]
                             for i in topic.argsort()[:-n_top_words - 1:-1]]),file=open(self.topic_output,'a+'))
-
-if __name__ == "__main__":
-    X = Analyse(2009,2020,1,12,10)
