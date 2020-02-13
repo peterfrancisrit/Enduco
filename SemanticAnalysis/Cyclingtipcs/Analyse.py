@@ -20,6 +20,10 @@ class Analyse:
         self.n_topics = n_topics
         self.topic_output = 'topic_output.txt'
 
+        # figlet
+        f = Figlet(font='slant')
+        print(f.renderText('EnducoAnalyser'))
+
         # open and clean
         self._open()
         self._clean()

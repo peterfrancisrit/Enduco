@@ -15,7 +15,11 @@ class Crawler:
         self.url = url
         self.log = "log.txt"
         self.log_endpage = "log_endpage.txt"
-        
+
+        # title 
+        f = Figlet(font='slant')
+        print(f.renderText('EnducoCrawler'))
+
         # self._write_header() # write the header for tsv file
         self._run_crawl()
 
