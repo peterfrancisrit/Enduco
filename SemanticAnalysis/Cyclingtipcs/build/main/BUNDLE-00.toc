@@ -1,0 +1,3 @@
+([('main',
+   '/Users/harryritchie/Documents/Enduco/SemanticAnalysis/Cyclingtipcs/dist/main',
+   'EXECUTABLE')],)

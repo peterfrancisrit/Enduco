@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import numpy as np
 
+
 class Crawler:
     ''' Crawler class for the website "https://cyclingtips.com".
     params: url

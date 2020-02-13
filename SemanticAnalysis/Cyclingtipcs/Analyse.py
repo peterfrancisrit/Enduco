@@ -20,7 +20,6 @@ class Analyse:
         self.n_topics = n_topics
         self.topic_output = 'topic_output.txt'
 
-
         # open and clean
         self._open()
         self._clean()
